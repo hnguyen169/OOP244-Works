@@ -1,7 +1,7 @@
 //Name: Harrison Nguyen
 //Email: hnguyen169@myseneca.ca
 //ID: 167096239
-//Date Compeleted: 05/28/2024
+//Date Compeleted: 05/31/2024
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #ifndef SENECA_BILL_H_
@@ -15,17 +15,17 @@ namespace seneca {
       Item* m_items;
       int m_noOfItems;
       int m_itemsAdded;
-      // Adds all the taxes of the items using a loop and returns the sum.
+      // Returns the total tax applied to the Items.
       double totalTax()const;
-      // Adds all the prices of the items using a loop and returns the sum;
+      // Returns the sum of prices of Items.
       double totalPrice()const;
-      // Prints the title with formatting based on whether Bill is valid/invalid.
+      // Prints the title of the shopping list.
       void Title()const;
-      // Prints the footer with formatting based on whether Bill is valid/invalid.
+      // Prints the footer contaning total tax, price and total price after tax.
       void footer()const;
-      // Sets the Bill object to an empty state by setting m_title to an Empty Cstring and m_items to nullptr
+      // Sets the Bill to an emtpy state.
       void setEmpty();
-      // Returns true if m_title is not empty and m_items is not null and all the Items in the m_items array are valid.
+      // Returns true is the Bill and all of its Items are valid.
       bool isValid()const;
    public:
       // // Initializes the Bill object with the provided title and number of items. If either argument is invalid, the Bill is set to an empty state. Otherwise, the function sets m_noOfItems to the provided value, resets m_itemsAdded to zero, copies the title into m_title, and allocates an array of Items with a length equal to m_noOfItems.
