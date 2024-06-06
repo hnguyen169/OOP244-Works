@@ -9,8 +9,13 @@
 #include <iomanip>
 #include <cstring>
 #include "Canister.h"
-using namespace std;
-namespace seneca {
 
+using namespace std;
+
+namespace seneca {
+	double PI = 3.14159265;
+	double H = {};
+	double D = {};
+	double Capacity = PI * (H - 0.267) * (D / 2) * (D / 2);
    
 }
