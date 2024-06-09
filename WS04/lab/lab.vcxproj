@@ -22,11 +22,11 @@
     <ClInclude Include="Canister.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Canister.cpp" />
-    <ClCompile Include="main.cpp" />
+    <Text Include="correct_output.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="correct_output.txt" />
+    <ClCompile Include="Canister.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

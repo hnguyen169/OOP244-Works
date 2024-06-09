@@ -1,7 +1,7 @@
 //Name: Harrison Nguyen
 //Email: hnguyen169@myseneca.ca
 //ID: 167096239
-//Date Compeleted: 06/05/2024
+//Date Compeleted: 06/08/2024
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #ifndef SENECA_CANISTER_H
@@ -44,10 +44,10 @@ namespace seneca {
       // Adds the quantity argument to the content volume of the Canister if it fits. Otherwise, renders the Canister unusable and returns the reference of the current object.
       Canister& pour(double quantity);
       // Pours the content of the Canister argument into the current Canister.
-      Canister& pour(Canister&);
+      Canister& pour(Canister& C);
       // Prints all the number values with one digit after the decimal point.
       std::ostream& display()const;
    };
 }
 
-#endif // !SENECA_BOX_H
+#endif // !SENECA_CANISTER_H
