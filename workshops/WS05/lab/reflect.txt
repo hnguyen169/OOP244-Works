@@ -1,0 +1,16 @@
+//Name: Harrison Nguyen
+//Email: hnguyen169@myseneca.ca
+//ID: 167096239
+//Date Compeleted: 06/17/2024
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
+In this workshop, we needed to create various binary member operators. A binary member operator is an operator that takes two operands: one is the object itself and the other is passed as a parameter. An example in my code is Account& operator+=(double val); this binary member operator checks if the current object(account) is valid using '*this' and the passed 'val' argument is positive. If they are both valid, it will add 'val' into the current account's 'm_balance' then returns the current account.
+
+A type conversion operator allows an object to be implicitly converted to another type. An example in my code is operator bool() const; this type conversion operator converts the object(account) into a boolean value. The type conversion operator then checks if the account number is valid(m_number >= 10000 && m_number <= 99999) and returns true if it is and false otherwise.
+
+A unary member operator is an operator that uses a single operand which is the object itself. An example in my code is bool operator~() const; this unary member operator checks if the account is new by checking if 'm_number' is zero and returns true if it is and false otherwise.
+
+A helper binary operator between classes is defined outside of the class(Account) and operates on two operands which are objects of the class. An example in my code is double operator+(const Account& acc1, const Account& acc2); this helper binary operator between classes adds the 'm_balance' of two valid accounts passed through the arguments and returns the sum of the two balances or returns zero if either account is invalid.
+
+A helper operator between a primitive type and a class is also defined outside of the class(Account) and operates on two operands: one being a primitive type and the other is an object in the class. An example in my code is double operator+=(double& val, const Account& acc); the helper operator between a primitive type and a class adds the balance of a valid account to a double 'val' and returns the updated double 'val'.
+
