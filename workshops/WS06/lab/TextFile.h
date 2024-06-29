@@ -1,3 +1,9 @@
+//Name: Harrison Nguyen
+//Email: hnguyen169@myseneca.ca
+//ID: 167096239
+//Date Compeleted: 06/29/2024
+//I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #ifndef SENECA_TEXTFILE_H__
 #define SENECA_TEXTFILE_H__
 #include <iostream>
