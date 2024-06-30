@@ -367,7 +367,7 @@ uses the getFile() method to get the file name from console and load the content
 #include <fstream>
 #include <string>
 #include "TextFile.h"
-using namespace sdds;
+using namespace seneca;
 using namespace std;
 
 void FirstTen(TextFile T);
