@@ -1,7 +1,7 @@
 //Name: Harrison Nguyen
 //Email: hnguyen169@myseneca.ca
 //ID: 167096239
-//Date Compeleted: 06/29/2024
+//Date Compeleted: 07/06/2024
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #ifndef SENECA_TEXTFILE_H__
@@ -9,14 +9,15 @@
 #include <iostream>
 namespace seneca {
    class Line {
-      char* m_value{ nullptr };
-      operator const char* ()const;
-      Line() {}
+      char* m_value;
+      operator const char* () const;
+      Line();
       Line& operator=(const char*);
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
-
+      Line(const Line&) = delete;
+      Line& operator=(const Line&) = delete;
    };
 
    class TextFile {
@@ -27,7 +28,7 @@ namespace seneca {
       void setFilename(const char* fname, bool isCopy = false);
       void setNoOfLines();
       void loadText();
-      void saveAs(const char *fileName)const;
+      void saveAs(const char *fileName) const;
       void setEmpty();
    public:
       TextFile(unsigned pageSize = 15);
@@ -35,12 +36,12 @@ namespace seneca {
       TextFile(const TextFile&);
       TextFile& operator=(const TextFile&);
       ~TextFile();
-      std::ostream& view(std::ostream& ostr)const;
+      std::ostream& view(std::ostream& ostr) const;
       std::istream& getFile(std::istream& istr);
-      operator bool()const;
-      unsigned lines()const;
-      const char* name()const;
-      const char* operator[](unsigned index)const;
+      operator bool() const;
+      unsigned lines() const;
+      const char* name() const;
+      const char* operator[](unsigned index) const;
    };
    std::ostream& operator<<(std::ostream& ostr, const TextFile& text);
    std::istream& operator>>(std::istream& istr, TextFile& text);
