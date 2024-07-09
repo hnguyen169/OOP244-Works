@@ -1,13 +1,16 @@
-// Final Project Milestone 1 
-// Date Module
-// File	Date.h
-// Version 1.0
-// Author	Fardad Soleimanloo
-// Revision History
-// -----------------------------------------------------------
-// Name               Date                 Reason
-// 
-/////////////////////////////////////////////////////////////////
+/* Citation and Sources...
+Final Project Milestone 1
+Module: Date
+Filename: Date.h
+Version 1.0
+Author:	Harrison Nguyen
+Email: hnguyen169@myseneca.ca
+ID: 167096239
+Date Compeleted: 07/06/2024
+-----------------------------------------------------------
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+-----------------------------------------------------------*/
 
 #ifndef SENECA_DATE_H__
 #define SENECA_DATE_H__
