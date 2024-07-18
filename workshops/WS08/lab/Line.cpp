@@ -1,7 +1,7 @@
 //Name: Harrison Nguyen
 //Email: hnguyen169@myseneca.ca
 //ID: 167096239
-//Date Completed: 07/17/2024
+//Date Completed: 07/18/2024
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #include "Line.h"
@@ -9,7 +9,7 @@
 #include <string>
 
 namespace seneca {
-	Line::Line(const char* cstr, int linelength) : LblShape(cstr), m_length(linelength) {}
+	Line::Line(const char* cstr, int length) : LblShape(cstr), m_length(length) {}
 
 	void Line::getSpecs(istream& is) {
 		LblShape::getSpecs(is);

@@ -1,7 +1,7 @@
 //Name: Harrison Nguyen
 //Email: hnguyen169@myseneca.ca
 //ID: 167096239
-//Date Completed: 07/17/2024
+//Date Completed: 07/18/2024
 //I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
 #include "Rectangle.h"
@@ -14,13 +14,10 @@ namespace seneca {
 	Rectangle::Rectangle() : m_width(0), m_height(0) {}
 
 	Rectangle::Rectangle(const char* cstr, int width, int height) : LblShape(cstr), m_width(width), m_height(height) {
-		if (height < 3 || width < static_cast<int>(strlen(label() + 2))) {
+        int labelWidth = strlen(label());
+		if (height < 3 || width < labelWidth + 2) {
 			m_width = 0;
 			m_height = 0;
-		}
-		else {
-			m_width = width;
-			m_height = height;
 		}
 	}
 
@@ -30,11 +27,6 @@ namespace seneca {
 		is >> m_width >> comma >> m_height;
         string temp;
         getline(is, temp);
-
-        if (m_height < 3 || m_width < static_cast<int>(strlen(label() + 2))) {
-			m_width = 0;
-			m_height = 0;
-		}
 	}
 
     void Rectangle::draw(std::ostream& os) const {
