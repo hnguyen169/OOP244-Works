@@ -49,19 +49,30 @@ namespace seneca {
       return days[mon] + int((mon == 1) * ((m_year % 4 == 0) && (m_year % 100 != 0)) || (m_year % 400 == 0));
    }
 
-   int Date::systemYear() const {
-      time_t t = time(NULL);
-      tm lt = *localtime(&t);
-      return lt.tm_year + 1900;
+   int Date::systemYear()const {
+       int theYear = seneca_year;
+       if (!seneca_test) {
+           time_t t = time(NULL);
+           tm lt = *localtime(&t);
+           theYear = lt.tm_year + 1900;
+       }
+       return theYear;
    }
 
    void Date::setToToday() {
-      time_t t = time(NULL);
-      tm lt = *localtime(&t);
-      m_day = lt.tm_mday;
-      m_mon = lt.tm_mon + 1;
-      m_year = lt.tm_year + 1900;
-      errCode(NO_ERROR);
+       if (seneca_test) {
+           m_day = seneca_day;
+           m_mon = seneca_mon;
+           m_year = seneca_year;
+       }
+       else {
+           time_t t = time(NULL);
+           tm lt = *localtime(&t);
+           m_day = lt.tm_mday;
+           m_mon = lt.tm_mon + 1;
+           m_year = lt.tm_year + 1900;
+       }
+       errCode(NO_ERROR);
    }
 
    int Date::daysSince0001_1_1() const { // Rata Die day since 0001/01/01 

@@ -79,6 +79,10 @@ namespace seneca {
    bool operator<(const Date& lhs, const Date& rhs);
    bool operator>(const Date& lhs, const Date& rhs);
 
+   extern bool seneca_test;
+   extern int seneca_year;
+   extern int seneca_mon;
+   extern int seneca_day;
 }
 
 #endif
