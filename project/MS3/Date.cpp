@@ -6,21 +6,19 @@ Version 1.0
 Author:	Harrison Nguyen
 Email: hnguyen169@myseneca.ca
 ID: 167096239
-Date Completed: 07/15/2024
+Date Completed: 07/27/2024
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 
 #define _CRT_SECURE_NO_WARNINGS
+#include "Date.h"
 #include <iomanip>
-#include <iostream>
 #include <ctime>
 #include <limits>
 
 using namespace std;
-
-#include "Date.h"
 
 namespace seneca {
     bool seneca_test = false;
