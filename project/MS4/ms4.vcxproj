@@ -144,7 +144,6 @@
     <ClCompile Include="ms4_tester.cpp" />
     <ClCompile Include="Publication.cpp" />
     <ClCompile Include="Streamable.cpp" />
-    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
@@ -152,7 +151,6 @@
     <ClInclude Include="Lib.h" />
     <ClInclude Include="Publication.h" />
     <ClInclude Include="Streamable.h" />
-    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Books.txt" />

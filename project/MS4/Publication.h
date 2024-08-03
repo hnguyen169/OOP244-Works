@@ -47,8 +47,8 @@ namespace seneca {
         int getRef() const;
 
         bool conIO(ios& io) const;
-        ostream& write(ostream& os) const;
-        istream& read(istream& istr);
+        virtual ostream& write(ostream& os) const;
+        virtual istream& read(istream& istr);
         operator bool() const;
     };
     ostream& operator<<(ostream& os, const Publication& p);

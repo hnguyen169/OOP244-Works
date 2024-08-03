@@ -15,8 +15,23 @@ that my professor provided to complete my workshops and assignments.
 #ifndef BOOK_H
 #define BOOK_H
 
-namespace seneca {
+#include "Publication.h"
 
+namespace seneca {
+	class Book : public Publication {
+		char* authorName{};
+	public:
+		Book();
+		Book(const Book& b);
+		Book& operator=(const Book& b);
+		~Book();
+
+		char type() const;
+		ostream& write(ostream& os) const;
+		istream& read(istream& is);
+		void set(int member_id);
+		operator bool() const;
+	};
 }
 
 #endif
