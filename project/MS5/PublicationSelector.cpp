@@ -15,16 +15,16 @@
 using namespace std;
 namespace seneca {
    void PublicationSelector::display(int page) const {
-      cout << m_title << endl 
+      std::cout << m_title << endl 
            << " Row  |LocID | Title                          |Mem ID | Date       | Author          |" << endl
            << "------+------+--------------------------------+-------+------------+-----------------|" << endl;
       for (int i = (page - 1) * m_pageSize ; i < m_noOfPubs && i < page * m_pageSize; i++) {
-         cout.width(4);
-         cout.setf(ios::right);
-         cout.fill(' ');
-         cout << (i + 1);
-         cout.unsetf(ios::right);
-         cout << "- " << *m_pub[i] << endl;
+         std::cout.width(4);
+         std::cout.setf(ios::right);
+         std::cout.fill(' ');
+         std::cout << (i + 1);
+         std::cout.unsetf(ios::right);
+         std::cout << "- " << *m_pub[i] << endl;
       }
    }
    int PublicationSelector::getSelectedLibRef()const{
@@ -35,12 +35,12 @@ namespace seneca {
       int retVal{};
       if (m_noOfPubs > m_pageSize) {
          if (m_currentPage > 1) 
-            cout << "> P (Previous Page)" << endl;
+            std::cout << "> P (Previous Page)" << endl;
          if (m_currentPage * m_pageSize < m_noOfPubs) 
-            cout << "> N (Next page)" << endl;
+            std::cout << "> N (Next page)" << endl;
       }
-      cout << "> X (to Exit)" << endl << "> Row Number(select publication)" << endl;
-      cout << "> ";
+      std::cout << "> X (to Exit)" << endl << "> Row Number(select publication)" << endl;
+      std::cout << "> ";
       do {
          chPeek = cin.peek();
          switch (chPeek) {
@@ -82,7 +82,7 @@ namespace seneca {
             }
             break;
          }
-      } while (!ok && cout << "Invalid selection, retry" << endl << "> ");
+      } while (!ok && std::cout << "Invalid selection, retry" << endl << "> ");
       return retVal;
    }
    PublicationSelector::~PublicationSelector() {

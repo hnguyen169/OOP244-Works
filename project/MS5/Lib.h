@@ -6,7 +6,7 @@ Version 1.0
 Author:	Harrison Nguyen
 Email: hnguyen169@myseneca.ca
 ID: 167096239
-Date Completed: 08/04/2024
+Date Completed: 08/09/2024
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
@@ -24,8 +24,8 @@ namespace seneca {
     // The width in which the author name of a book should be printed on the console
     const int SENECA_SHELF_ID_LEN = 4;
     // The width in which the shelf id of a publication should be printed on the console
-    const int SENECA_LIBRARY_CAPACITY = 5000;
+    const int SENECA_LIBRARY_CAPACITY = 333;
     // Maximum number of publications the library can hold.
 }
 
-#endif
+#endif // !SENECA_LIB_H

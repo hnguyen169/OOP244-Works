@@ -6,142 +6,146 @@ Version 1.0
 Author:	Harrison Nguyen
 Email: hnguyen169@myseneca.ca
 ID: 167096239
-Date Completed: 08/04/2024
+Date Completed: 08/09/2024
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <iomanip>
-#include <cstring>
 #include "Menu.h"
+#include "Utils.h"
+#include <cstring>
+
+using namespace std;
 
 namespace seneca {
+	MenuItem::MenuItem(const char* name) {
+		if (name && name[0] != '\0') {
+			m_content = new char[strlen(name) + 1];
+			strcpy(m_content, name);
+		}
+		else {
+			setEmpty();
+		}
+	}
 
-    // MenuItem Implementation
-    MenuItem::MenuItem(const char* content) {
-        if (content) {
-            m_content = new char[strlen(content) + 1];
-            strcpy(m_content, content);
-        }
-        else {
-            m_content = nullptr;
-        }
-    }
+	MenuItem::~MenuItem() {
+		delete[] m_content;
+	}
 
-    MenuItem::~MenuItem() {
-        delete[] m_content;
-    }
+	void MenuItem::setEmpty() {
+		m_content = nullptr;
+	}
 
-    MenuItem::operator bool() const {
-        return m_content != nullptr;
-    }
+	bool MenuItem::isEmpty() const {
+		return m_content[0] == '\0';
+	}	
 
-    MenuItem::operator const char* () const {
-        return m_content;
-    }
+	MenuItem::operator bool() const {
+		return (isEmpty());
+	}
 
-    void MenuItem::display(std::ostream& os) const {
-        if (*this) {
-            os << m_content;
-        }
-    }
+	MenuItem::operator const char* () const {
+		return m_content;
+	}
 
-    // Menu Implementation
-    Menu::Menu() : m_title(nullptr), m_numItems(0) {
-        for (unsigned int i = 0; i < MAX_MENU_ITEMS; ++i) {
-            m_items[i] = nullptr;
-        }
-    }
+	void MenuItem::display(ostream& os) const {
+		if (!isEmpty()) {
+			os << m_content;
+		}
+	}
 
-    Menu::Menu(const char* title) : m_numItems(0) {
-        m_title = new MenuItem(title);
-        for (unsigned int i = 0; i < MAX_MENU_ITEMS; ++i) {
-            m_items[i] = nullptr;
-        }
-    }
+	void Menu::setEmpty() {
+		unsigned int i;
+		title = nullptr;
+		for (i = 0; i < MAX_MENU_ITEMS; i++) {
+			m_items[i] = nullptr;
+		}
+		count = 0;
+	}
 
-    Menu::~Menu() {
-        delete m_title;
-        for (unsigned int i = 0; i < m_numItems; ++i) {
-            delete m_items[i];
-        }
-    }
+	Menu::Menu(const char* title) {
+		setEmpty();
+		if (title) {
+			this->title = new MenuItem(title);
+		}
+	}
+	
+	Menu::~Menu() {
+		unsigned int i;
+		delete title;
+		for (i = 0; i < count; i++) {
+			delete m_items[i];
+		}
+	}
 
-    void Menu::displayTitle(std::ostream& os) const {
-        if (m_title) {
-            m_title->display(os);
-            os << std::endl;
-        }
-    }
+	void Menu::displayTitle(ostream& os, bool withContent) const {
+		if (title) {
+			os << title->m_content;
+			if (withContent) {
+				os << endl;
+			}
+		}
+	}
 
-    void Menu::displayMenu(std::ostream& os) const {
-        displayTitle(os);
-        for (unsigned int i = 0; i < m_numItems; ++i) {
-            os << std::setw(2) << std::right << (i + 1) << "- ";
-            m_items[i]->display(os);
-            os << std::endl;
-        }
-        os << " 0- Exit" << std::endl;
-        os << "> ";
-    }
+	void Menu::display(ostream& os) const {
+		displayTitle(os, true);
+		unsigned int i;
+		for (i = 0; i < count; i++) {
+			os.width(2);
+			os.setf(ios::right);
+			os << i + 1 << "- ";
+			m_items[i]->display(os);
+			os << endl;
+		}
+		os << " 0- Exit" << endl;
+		os << "> ";
+	}
 
-    unsigned int Menu::run() const {
-        displayMenu(std::cout);
-        unsigned int selection;
-        bool valid = false;
-        while (!valid) {
-            std::cin >> selection;
-            if (std::cin.fail() || selection > m_numItems) {
-                std::cin.clear();
-                std::cin.ignore(10000, '\n');
-                std::cout << "Invalid Selection, try again: ";
-            }
-            else {
-                valid = true;
-            }
-        }
-        return selection;
-    }
+	unsigned int Menu::run() const {
+		display(cout);
+		return foolproof(count, 0, "Invalid Selection, try again: ");
+	}
 
-    Menu& Menu::operator<<(const char* menuitemContent) {
-        if (m_numItems < MAX_MENU_ITEMS) {
-            m_items[m_numItems] = new MenuItem(menuitemContent);
-            ++m_numItems;
-        }
-        return *this;
-    }
+	unsigned int Menu::operator~() const {
+		return run();
+	}
 
-    Menu::operator int() const {
-        return static_cast<int>(m_numItems);
-    }
+	Menu& Menu::operator<<(const char* menuitemContent) {
+		if (menuitemContent && menuitemContent[0] != '\0' && count < MAX_MENU_ITEMS) {
+			m_items[count] = new MenuItem(menuitemContent);
+			count++;
+		}
+		return *this;
+	}
 
-    Menu::operator unsigned int() const {
-        return m_numItems;
-    }
+	Menu::operator int() const {
+		return (int)count;
+	}
 
-    Menu::operator bool() const {
-        return m_numItems > 0;
-    }
+	Menu::operator unsigned int() const {
+		return count;
+	}
 
-    const char* Menu::operator[](int index) const {
-        if (m_numItems == 0) {
-            return nullptr;
-        }
-        return static_cast<const char*>(*m_items[index % m_numItems]);
-    }
+	Menu::operator bool() const {
+		if (count > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
-    unsigned int Menu::operator~() const {
-        return run();
-    }
+	const char* Menu::operator[](unsigned int index) const {
+		if (count == 0) {
+			return nullptr;
+		}
+		return (const char*)(*m_items[index % count]);
+	}
 
-    std::ostream& operator<<(std::ostream& os, const Menu& menu) {
-        if (menu.m_title) {
-            menu.m_title->display(os);
-        }
-        return os;
-    }
-
+	ostream& operator<<(ostream& os, const Menu& menu) {
+		menu.displayTitle(os, false);
+		return os;
+	}	
 }

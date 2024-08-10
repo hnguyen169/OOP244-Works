@@ -6,45 +6,50 @@ Version 1.0
 Author:	Harrison Nguyen
 Email: hnguyen169@myseneca.ca
 ID: 167096239
-Date Completed: 08/04/2024
+Date Completed: 08/09/2024
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 
 #define _CRT_SECURE_NO_WARNINGS
+#include "Lib.h"
 #include "Book.h"
 #include <cstring>
 #include <iomanip>
 
 namespace seneca {
-	Book::Book() : authorName(nullptr) {}
+	Book::Book() : Publication() {
+		m_authorname = nullptr;
+	}
 
-	Book::Book(const Book& b) {
-		*this = b;
+	Book::Book(const Book& b) : Publication(b) {
+		m_authorname = nullptr;
+
+		if (b.m_authorname) {
+			m_authorname = new char[strlen(b.m_authorname) + 1];
+			strcpy(m_authorname, b.m_authorname);
+		}
 	}
 
 	Book& Book::operator=(const Book& b) {
 		if (this != &b) {
-			Publication::operator=(b);
+			(Publication&)*this = b;
 
-			delete[] authorName;
-			authorName = nullptr;
+			delete[] m_authorname;
+			m_authorname = nullptr;
 
-			if (b.authorName && b.authorName[0] != '\0') {
-				authorName = new char[strlen(b.authorName) + 1];
-				strcpy(authorName, b.authorName);
+			if (b.m_authorname) {
+				m_authorname = new char[strlen(b.m_authorname) + 1];
+				strcpy(m_authorname, b.m_authorname);
 			}
-			else {
-				authorName = nullptr;
-			}
-		}		
+		}
 		return *this;
 	}
 
 	Book::~Book() {
-		delete[] authorName;
-		authorName = nullptr;
+		delete[] m_authorname;
+		m_authorname = nullptr;
 	}
 
 	char Book::type() const {
@@ -55,13 +60,20 @@ namespace seneca {
 		Publication::write(os);
 
 		if (conIO(os)) {
-			char tempAuthor[SENECA_AUTHOR_WIDTH + 1] = { 0 };
-			strncpy(tempAuthor, authorName, SENECA_AUTHOR_WIDTH);
-
-			os << " " << setw(SENECA_AUTHOR_WIDTH) << left << setfill(' ') << tempAuthor << " |";
+			os << left;
+			if (m_authorname) {
+				os << " ";
+				if (strlen(m_authorname) > SENECA_AUTHOR_WIDTH) {
+					os.write(m_authorname, SENECA_AUTHOR_WIDTH);
+				}
+				else {
+					os << setw(SENECA_AUTHOR_WIDTH) << m_authorname;
+				}
+				os << " |";
+			}
 		}
 		else {
-			os << "\t" << (authorName ? authorName : "");
+			os << m_authorname;
 		}
 		return os;
 	}
@@ -71,13 +83,13 @@ namespace seneca {
 
 		Publication::read(is);
 
-		delete[] authorName;
-		authorName = nullptr;
+		delete[] m_authorname;
+		m_authorname = nullptr;
 
 		if (conIO(is)) {
 			is.ignore();
 			cout << "Author: ";
-			is.getline(tempAuthor, 256);
+			is.get(tempAuthor, 256);
 		}
 		else {
 			is.ignore();
@@ -85,14 +97,13 @@ namespace seneca {
 		}
 
 		if (is) {
-			if (tempAuthor[0] != '\0') {
-				authorName = new char[strlen(tempAuthor) + 1];
-				strcpy(authorName, tempAuthor);
-			}
-			else {
-				authorName = nullptr;
-			}
-		}	
+			m_authorname = new char[strlen(tempAuthor) + 1];
+			strcpy(m_authorname, tempAuthor);
+		}
+		else {
+			delete[] m_authorname;
+			m_authorname = nullptr;
+		}
 		return is;
 	}
 
@@ -102,6 +113,6 @@ namespace seneca {
 	}
 
 	Book::operator bool() const {
-		return (authorName && authorName[0] != '\0' && Publication::operator bool());
+		return m_authorname && m_authorname[0] != '\0' && Publication::operator bool();
 	}
 }

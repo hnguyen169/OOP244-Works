@@ -6,7 +6,7 @@ Version 1.0
 Author:	Harrison Nguyen
 Email: hnguyen169@myseneca.ca
 ID: 167096239
-Date Completed: 08/04/2024
+Date Completed: 08/09/2024
 -----------------------------------------------------------
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
@@ -15,49 +15,55 @@ that my professor provided to complete my workshops and assignments.
 #ifndef SENECA_MENU_H
 #define SENECA_MENU_H
 
-#include <ostream>
+#include <iostream>
+
+using namespace std;
 
 namespace seneca {
-    const unsigned int MAX_MENU_ITEMS = 20;
+	const unsigned int MAX_MENU_ITEMS = 20;
 
-    class Menu;
+	class Menu;
 
-    class MenuItem {
-        friend class Menu;
+	class MenuItem {
+		friend class Menu;
 
-        char* m_content;
+		char* m_content;		
 
-        MenuItem(const char* content = nullptr);
-        MenuItem(const MenuItem&) = delete;
-        MenuItem& operator=(const MenuItem&) = delete;
-        ~MenuItem();
+		MenuItem(const char* name);
+		MenuItem(const MenuItem& copy) = delete;
+		MenuItem& operator=(const MenuItem& copy) = delete;
+		~MenuItem();
 
-        operator bool() const;
-        operator const char* () const;
-    public:
-        void display(std::ostream& os) const;
-    };
+		void setEmpty();
+		bool isEmpty() const;
 
-    class Menu {
-        MenuItem* m_title;
-        MenuItem* m_items[MAX_MENU_ITEMS];
-        unsigned int m_numItems;
+		operator bool() const;
+		operator const char* () const;
+		void display(ostream& os) const;
+	};
 
-    public:
-        Menu();
-        Menu(const char* title);
-        ~Menu();
-        void displayTitle(std::ostream& os) const;
-        void displayMenu(std::ostream& os) const;
-        unsigned int run() const;
-        unsigned int operator~() const;
-        Menu& operator<<(const char* menuitemContent);
-        operator int() const;
-        operator unsigned int() const;
-        operator bool() const;
-        friend std::ostream& operator<<(std::ostream& os, const Menu& menu);
-        const char* operator[](int index) const;  
-    };
+	class Menu {
+		MenuItem* title;
+		MenuItem* m_items[MAX_MENU_ITEMS];
+		unsigned int count;
+
+		Menu(const Menu& copy) = delete;
+		Menu& operator=(const Menu& copy) = delete;
+		void setEmpty();
+	public:
+		Menu(const char* title = nullptr);
+		~Menu();
+		void displayTitle(ostream& os, bool withContent) const;
+		void display(ostream& os) const;
+		unsigned int run() const;
+		unsigned int operator~() const;
+		Menu& operator<<(const char* menuitemContent);
+		operator int() const;
+		operator unsigned int() const;
+		operator bool() const;
+		const char* operator[](unsigned int index) const;
+	};
+	ostream& operator<<(ostream& os, const Menu& menu);
 }
 
-#endif
+#endif // !SENECA_MENU_H
